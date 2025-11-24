@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-countries.sql
+  - include:
+      file: db/changelog/002-create-items.sql
+  - include:
+      file: db/changelog/003-seed-countries.sql
+  - include:
+      file: db/changelog/004-seed-items.sql
