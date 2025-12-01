@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Items</title>
+</head>
+<body>
+<h1>Items</h1>
+<p><a href="/items/new">Create Item</a> | <a href="/countries">Countries</a></p>
+<table border="1" cellpadding="6">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Manufacturer</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="i : ${items}">
+    <td th:text="${i.id}"></td>
+    <td th:text="${i.name}"></td>
+    <td th:text="${i.price}"></td>
+    <td th:text="${i.quantity}"></td>
+    <td th:text="${i.manufacturer != null ? i.manufacturer.name : 'N/A'}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Item</title>
+</head>
+<body>
+<h1>Create Item</h1>
+<form th:action="@{/items}" method="post" th:object="${form}">
+  <div>
+    <label>Name</label>
+    <input type="text" th:field="*{name}" required>
+  </div>
+  <div>
+    <label>Price</label>
+    <input type="number" th:field="*{price}" required>
+  </div>
+  <div>
+    <label>Quantity</label>
+    <input type="number" th:field="*{quantity}" required>
+  </div>
+  <div>
+    <label>Manufacturer</label>
+    <select th:field="*{manufacturerId}" required>
+      <option value="" disabled selected>Select country</option>
+      <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.name}"></option>
+    </select>
+  </div>
+  <div>
+    <button type="submit">Create</button>
+    <a href="/items">Cancel</a>
+  </div>
+</form>
+</body>
+</html>
