@@ -24,4 +24,30 @@ public class CountryService {
     public Optional<Country> findById(Long id) {
         return countryRepository.findById(id);
     }
+
+    public Optional<Country> findByCode(String code) {
+        return countryRepository.findByCode(code);
+    }
+
+    @Transactional
+    public Country create(String name, String code) {
+        Country c = new Country();
+        c.setName(name);
+        c.setCode(code);
+        return countryRepository.save(c);
+    }
+
+    @Transactional
+    public Country update(Long id, String name, String code) {
+        Country c = countryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Country not found: " + id));
+        c.setName(name);
+        c.setCode(code);
+        return countryRepository.save(c);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        countryRepository.deleteById(id);
+    }
 }

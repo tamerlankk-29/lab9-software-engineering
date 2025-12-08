@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,6 +24,10 @@ public class ItemService {
         return itemRepository.findAllWithManufacturer();
     }
 
+    public Optional<Item> findById(Long id) {
+        return itemRepository.findById(id);
+    }
+
     @Transactional
     public Item create(String name, int price, int quantity, Long manufacturerId) {
         Country manufacturer = countryService.findById(manufacturerId)
@@ -33,5 +38,25 @@ public class ItemService {
         item.setQuantity(quantity);
         item.setManufacturer(manufacturer);
         return itemRepository.save(item);
+    }
+
+    @Transactional
+    public Item update(Long id, String name, int price, int quantity, Long manufacturerId) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found: " + id));
+        item.setName(name);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+        if (manufacturerId != null) {
+            Country manufacturer = countryService.findById(manufacturerId)
+                    .orElseThrow(() -> new IllegalArgumentException("Country not found: " + manufacturerId));
+            item.setManufacturer(manufacturer);
+        }
+        return itemRepository.save(item);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        itemRepository.deleteById(id);
     }
 }
